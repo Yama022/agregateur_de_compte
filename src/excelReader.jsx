@@ -108,7 +108,7 @@ const ExcelReader = () => {
         <div>
             <input type="file" onChange={handleFile} accept=".xlsx, .xls" />
 
-            {transactions.length === 0 ? '' :
+            {transactions.length === 0 || groupedTransactions.length === 0 ? '' :
                 <div>
                     <h2>Paiements courants</h2>
                     <table>
