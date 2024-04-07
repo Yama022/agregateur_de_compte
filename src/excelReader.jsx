@@ -107,47 +107,52 @@ const ExcelReader = () => {
     return (
         <div>
             <input type="file" onChange={handleFile} accept=".xlsx, .xls" />
-            <h2>Paiements courants</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Libellé</th>
-                        <th>Débit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {transactions
-                        .filter(transaction => !isNaN(transaction.Débit)) // Filtre pour exclure les NaN
-                        .map((transaction, index) => (
-                            <tr key={index}>
-                                <td>{reformatDateFR(transaction.Date)}</td>
-                                <td>{transaction.Libellé}</td>
-                                <td>{transaction.Débit.toFixed(2).replace('.', ',').split("-")}</td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
 
-                    
-            </table>
-            <h2>Paiements regroupés</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Libellé</th>
-                        <th>Total Débit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {groupedTransactions.map((group, index) => (
-                        <tr key={index}>
-                            <td>{group.Libellé}</td>
-                            <td>{group.TotalDébit.toFixed(2).replace('.', ',').split("-")}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {transactions.length === 0 ? '' :
+                <div>
+                    <h2>Paiements courants</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Libellé</th>
+                                <th>Débit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transactions
+                                .filter(transaction => !isNaN(transaction.Débit)) // Filtre pour exclure les NaN
+                                .map((transaction, index) => (
+                                    <tr key={index}>
+                                        <td>{reformatDateFR(transaction.Date)}</td>
+                                        <td>{transaction.Libellé}</td>
+                                        <td>{transaction.Débit.toFixed(2).replace('.', ',').split("-")}</td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+
+                            
+                    </table>
+                    <h2>Paiements regroupés</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Libellé</th>
+                                <th>Total Débit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {groupedTransactions.map((group, index) => (
+                                <tr key={index}>
+                                    <td>{group.Libellé}</td>
+                                    <td>{group.TotalDébit.toFixed(2).replace('.', ',').split("-")}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     );
 };
